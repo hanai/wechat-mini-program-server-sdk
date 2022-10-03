@@ -1,6 +1,6 @@
 class ServiceError extends Error {
-  constructor(data) {
-    super(`Failed to call ${data.url}`);
+  constructor(msg, data) {
+    super(msg);
     this.data = data;
   }
 }

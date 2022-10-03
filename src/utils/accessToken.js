@@ -1,4 +1,5 @@
 const axios = require("axios");
+const ServiceError = require("./ServiceError");
 
 let expiresAt;
 let accessToken;
@@ -6,20 +7,26 @@ let accessToken;
 const simpleGetAccessToken = async (opts) => {
   const { appId, appSecret } = opts;
 
-  if (Date.now() < expiresAt && accessToken) {
+  const now = Date.now();
+
+  if (now < expiresAt && accessToken) {
     return accessToken;
   }
 
-  const { data } = await axios.get(
-    `https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=${appId}&secret=${appSecret}`
-  );
+  const { data } = await axios.get(`https://api.weixin.qq.com/cgi-bin/token`, {
+    params: {
+      grant_type: "client_credential",
+      appid: appId,
+      secret: appSecret,
+    },
+  });
 
-  if (data.access_token && data.expires_in) {
-    accessToken = data.access_token;
-    expiresAt = Date.now() + data.expires_in;
-    return accessToken;
+  if (data && typeof data.errcode === "number" && data.errcode !== 0) {
+    throw new ServiceError("Failed to get access token", { data });
   } else {
-    throw data;
+    accessToken = data.access_token;
+    expiresAt = now + data.expires_in * 1000;
+    return accessToken;
   }
 };
 

@@ -19,7 +19,7 @@ const onResponse = function (response) {
     typeof response.data.errcode === "number" &&
     response.data.errcode !== 0
   ) {
-    throw new ServiceError({
+    throw new ServiceError(`Failed to call ${response.config.url}`, {
       url: response.config.url,
       data: response.data,
       params: response.config.params,
