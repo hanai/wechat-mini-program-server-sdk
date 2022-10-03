@@ -1,0 +1,27 @@
+{
+  "name": "wechat-mini-program-server-sdk",
+  "version": "1.0.0",
+  "description": "WeChat Mini Program Server SDK",
+  "main": "src/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hanai/wechat-mini-program-server-sdk.git"
+  },
+  "keywords": [
+    "wechat",
+    "sdk",
+    "mini-program"
+  ],
+  "author": "Hanai",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/hanai/wechat-mini-program-server-sdk/issues"
+  },
+  "homepage": "https://github.com/hanai/wechat-mini-program-server-sdk#readme",
+  "dependencies": {
+    "axios": "^0.27.2"
+  }
+}
